@@ -1,0 +1,31 @@
+name: Daily Unilever Wheel Spin
+
+on:
+  # This runs the script automatically at 2:00 AM UTC every day
+  schedule:
+    - cron: '0 2 * * *'
+
+  # This allows you to run it manually from the Actions tab in GitHub
+  workflow_dispatch:
+
+jobs:
+  run_spin_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install playwright
+
+      - name: Run the daily spin script
+        run: node run-spin.js
+        env:
+          # Use the secrets you created for your credentials
+          UFS_EMAIL: ${{ secrets.UFS_EMAIL }}
+          UFS_PASSWORD: ${{ secrets.UFS_PASSWORD }}
