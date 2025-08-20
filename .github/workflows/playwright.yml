@@ -32,3 +32,9 @@ jobs:
           # Use the secrets you created for your credentials
           UFS_EMAIL: ${{ secrets.UFS_EMAIL }}
           UFS_PASSWORD: ${{ secrets.UFS_PASSWORD }}
+
+      - name: Upload screenshot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spin-screenshot
+          path: point.png
